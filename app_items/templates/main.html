@@ -1,0 +1,61 @@
+{% load i18n %}
+<html>
+<head>
+    <title>Buy with Stripe</title>
+</head>
+<body>
+<header>
+    <hr>
+    <a href="{% url 'items' %}">{% trans "All items" %}</a> /
+    <a href="{% url 'item_create' %}">{% trans "Create item" %}</a> /
+    <a href="{% url 'orders' %}">{% trans "All orders" %}</a> /
+    <a href="{% url 'order_create' %}">{% trans "Create order" %}</a> /
+    <hr>
+    <a href="{% url 'discounts' %}">{% trans "All discounts" %}</a> /
+    <a href="{% url 'discount_create' %}">{% trans "Create discount" %}</a> /
+    <a href="{% url 'tax_rates' %}">{% trans "All task rates" %}</a> /
+    <a href="{% url 'tax_rate_create' %}">{% trans "Create task rate" %}</a> /
+    <div class="valute" id="usd">
+        <p>USD: <span class="usd"></span></p>
+    </div>
+    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <select name="language">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+            </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go">
+        <hr>
+    </form>
+
+</header>
+<div>
+
+    {% block content %}
+    <h1>{% trans "Main page" %}</h1>
+    {% endblock %}
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript">
+
+    const USDviuw = document.querySelector('.usd')
+
+    const valute = { USD: ""}
+
+    axios.get("https://www.cbr-xml-daily.ru/daily_json.js")
+        .then((res) => {
+            valute.USD = res.data.Valute.USD.Value
+            USDviuw.textContent = valute.USD
+        })
+
+</script>
+</html>

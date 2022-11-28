@@ -1,0 +1,14 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+
+    <h3>{% trans "Tax rate name" %}: {{ tax_rate.display_name }}</h3>
+    <p>{% trans "Tax inclusive" %}: {{ tax_rate.inclusive }}</p>
+    <p>{% trans "Tax rate percentage" %}: {{ tax_rate.percentage }}</p>
+
+{% endblock %}}
+
+</body>

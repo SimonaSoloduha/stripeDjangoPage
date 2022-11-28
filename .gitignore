@@ -1,0 +1,7 @@
+# Text backup files
+*.bak
+*.env
+venv
+
+#Database
+*.sqlite3

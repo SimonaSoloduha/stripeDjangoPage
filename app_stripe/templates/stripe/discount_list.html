@@ -1,0 +1,30 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+<h1>{% trans "All discount" %}</h1>
+
+{% if discount_list %}
+
+<ul>
+
+    {% for discount in discount_list %}
+
+    <li>
+        <a href="{{ discount.id }}">{{ discount.name }}</a>
+        <p>{% trans "percent" %}: {{discount.percent_off}}</p>
+    </li>
+    <hr>
+
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>{% trans "Not discounts" %}</p>
+{% endif %}
+
+{% endblock %}}
+
+</body>

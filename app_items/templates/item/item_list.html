@@ -1,0 +1,30 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+<h1>{% trans "All items" %}</h1>
+
+{% if item_list %}
+<ul>
+
+    {% for item in item_list %}
+
+    <li>
+        <a href="{{ item.id }}">{{ item.name }}</a>
+        <p>{{item.descriptions|truncatechars:100}}</p>
+        <p>{% trans "Price" %}: {{item.price}}</p>
+    </li>
+    <hr>
+
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>{% trans "Not items" %}</p>
+{% endif %}
+
+{% endblock %}}
+
+</body>

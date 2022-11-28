@@ -1,0 +1,30 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+<h1>{% trans "All task rates" %}</h1>
+
+{% if tax_rate_list %}
+
+<ul>
+
+    {% for tax_rate in tax_rate_list %}
+
+    <li>
+        <a href="{{ tax_rate.id }}">{{ tax_rate.display_name }}</a>
+        <p>{% trans "percentage" %}: {{tax_rate.percentage}}</p>
+    </li>
+    <hr>
+
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>{% trans "Not tax" %}</p>
+{% endif %}
+
+{% endblock %}}
+
+</body>

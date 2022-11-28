@@ -1,0 +1,27 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+
+<h3>{% trans "ORDER ID" %}: {{ order.id }}</h3>
+<h5>{% trans "Items" %}:</h5>
+{% for item in order.items.all %}
+<p> * {{ item.name }} -- {{ item.price_usd }}usd / {{ item.price_rub }}rub</p>
+{% endfor %}
+<p>{% trans "Total" %}: {{ order.sum_order_usd }}usd / {{ order.sum_order_rub }}rub </p>
+{% if order.discount %}
+{% trans "SALE!!" %}: {{order.discount.percent_off}} {{order.discount}}
+{% endif %}
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Bay"/>
+</form>
+
+{% endblock %}}
+
+</body>

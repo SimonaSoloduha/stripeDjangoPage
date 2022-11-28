@@ -1,0 +1,14 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+
+    <h3>{% trans "Discount title" %}: {{ discount.name }}</h3>
+    <p>{% trans "Duration" %}: {{ discount.duration }}</p>
+    <p>{% trans "Percent off" %}: {{ discount.percent_off }}</p>
+
+{% endblock %}}
+
+</body>

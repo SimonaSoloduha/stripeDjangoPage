@@ -1,0 +1,35 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+<h1>{% trans "All orders" %}</h1>
+
+{% if order_list %}
+
+<ul>
+
+    {% for order in order_list %}
+
+    <li>
+        <p>{% trans "ORDER ID" %}: {{ order.id }}
+        <p>{% trans "SUMM" %} {{ order.sum_order }}</p>
+        <p><a href="{{ order.id }}">{% trans "See detail and pay" %}</a></p>
+        <hr>
+    </li>
+    <hr>
+    <hr>
+
+    {% endfor %}
+
+</ul>
+
+
+{% else %}
+<p>{% trans "Not items" %}</p>
+{% endif %}
+
+{% endblock %}}
+
+</body>

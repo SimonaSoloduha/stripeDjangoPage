@@ -1,0 +1,21 @@
+{% extends 'main.html'%}
+{% load i18n %}
+
+<body>
+
+{% block content %}
+
+<h3>{% trans "Item" %}: {{ item.name }}</h3>
+<p>{{ item.description }}</p>
+<p>{% trans "Price" %}: {{ item.price_usd }} usd</p>
+<p>{% trans "Price" %}: {{ item.price_rub }} rub</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Bay"/>
+</form>
+
+{% endblock %}}
+
+</body>
