@@ -4,3 +4,4 @@
 venv
 
 #Database
+*.sqlite3
