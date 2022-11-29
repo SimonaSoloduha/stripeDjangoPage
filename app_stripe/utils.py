@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import stripe
 from django.conf import settings
 
@@ -5,7 +7,11 @@ stripe.api_key = settings.STRIPE_API_KEY
 
 
 def create_discount_on_stripe(obj):
-    stripe.Coupon.create(duration=obj.duration, id=obj.id, percent_off=obj.percent_off)
+    now = datetime.now()
+    date_time = now.strftime("%m%d%Y%H%M%S")
+    discount = stripe.Coupon.create(duration=obj.duration, id=f'{obj.id}_{date_time}', percent_off=obj.percent_off)
+    obj.stripe_id = discount.id
+    obj.save(update_fields=['stripe_id'])
 
 
 def create_tax_rate_on_stripe(obj):

@@ -17,6 +17,7 @@ class Discount(models.Model):
         verbose_name=_('duration')
     )
     percent_off = models.DecimalField(max_digits=100, decimal_places=1, default=10, verbose_name=_('percent off'))
+    stripe_id = models.CharField(max_length=100, blank=True, verbose_name=_('stripe_id'))
 
     class Meta:
         verbose_name = _('discount')

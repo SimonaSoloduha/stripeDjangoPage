@@ -3,10 +3,13 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin
 
 from app_items.forms import OrderCreateForm, ChangeCurrency
 
 from app_items.models import Item, Order
+from app_items.serializers import ItemSerializer, OrderSerializer
 from app_items.utils import create_item_on_stripe, create_checkout_session
 
 
@@ -109,3 +112,19 @@ class OrderDetailView(generic.DetailView):
             session = create_checkout_session(name=f'ORDER number {order.id}', price=price,
                                               currency=currency, discount_id=discount_id)
             return redirect(session.url)
+
+
+class ItemDetail(RetrieveModelMixin, GenericAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+class OrderDetail(RetrieveModelMixin, GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)

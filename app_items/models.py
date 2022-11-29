@@ -12,6 +12,9 @@ class Item(models.Model):
     stripe_id = models.CharField(max_length=100, blank=True, default='', verbose_name=_('stripe_id'))
     description = models.TextField(verbose_name=_('description'), blank=True)
 
+    def get_new(self):
+        return "some_calculated_result"
+
     class Meta:
         verbose_name = 'item'
         verbose_name_plural = 'items'
