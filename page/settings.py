@@ -34,7 +34,7 @@ STRIPE_API_KEY = env('STRIPE_API_KEY')
 # DEBUG = False
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
