@@ -63,7 +63,9 @@ touch .env
 https://dashboard.stripe.com/test/apikeys
 
 
-SECRET_KEY=re7ucstw$wpu8x-6cdh2-$2gs1@svb)i_n@ci&j-=o=tp%gxq STRIPE_API_KEY=sk_test...LjV
+SECRET_KEY=re7ucstw$wpu8x-6cdh2-$2gs1@svb)i_n@ci&j-=o=tp%gxq 
+
+STRIPE_API_KEY=sk_test...LjV
 
 12. Создате админа
 
