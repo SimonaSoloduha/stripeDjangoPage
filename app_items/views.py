@@ -105,7 +105,7 @@ class OrderDetailView(generic.DetailView):
             else:
                 price = order.sum_order_rub
             if order.discount:
-                discount_id = order.discount.id
+                discount_id = order.discount.stripe_id
             else:
                 discount_id = None
             session = create_checkout_session(name=f'ORDER number {order.id}', price=price,
