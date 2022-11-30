@@ -3,8 +3,9 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin
+from rest_framework.response import Response
 
 from app_items.forms import OrderCreateForm, ChangeCurrency
 
@@ -37,8 +38,6 @@ class ItemDetailView(generic.DetailView):
 
     def get(self, request, item_id):
         item = Item.objects.get(id=item_id)
-        print('PRICEEE!', item.stripe_price)
-
         form = ChangeCurrency()
         return render(
             request,
@@ -118,6 +117,14 @@ class ItemDetail(RetrieveModelMixin, GenericAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
+    def get_serializer_context(self):
+        currency = self.request.query_params.get('currency')
+        discount_id = self.request.query_params.get('discount_id')
+        return {
+            "discount_id": discount_id,
+            "currency": currency,
+                }
+
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
@@ -125,6 +132,14 @@ class ItemDetail(RetrieveModelMixin, GenericAPIView):
 class OrderDetail(RetrieveModelMixin, GenericAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def get_serializer_context(self):
+        currency = self.request.query_params.get('currency')
+        discount_id = self.request.query_params.get('discount_id')
+        return {
+            "discount_id": discount_id,
+            "currency": currency,
+                }
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

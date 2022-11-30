@@ -12,4 +12,5 @@ urlpatterns = [
     path('orders/<int:order_id>/', OrderDetailView.as_view(), name='order_detail'),
     path('bay/<int:pk>/', ItemDetail.as_view(), name='items_detail_api'),
     path('bay_order/<int:pk>/', ItemDetail.as_view(), name='order_detail_api'),
+    path('item/<int:item_id>/', ItemDetailView.as_view(), name='item_detail'),
 ]
